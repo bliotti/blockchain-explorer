@@ -2,24 +2,27 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 const axios = require('axios')
+require('dotenv').config()
 
 function App() {
     const [data, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
 
-    const url = `https://explorer.aquacha.in`
+    const url = process.env.REACT_APP_BASE_URL
 
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true)
-            try {
-                const response = await axios.get(`${url}/block/29390`)
-                console.log(response)
-                setData(response.data)
-                setIsLoading(false)
-            } catch (error) {
-                console.error(error)
-                setIsLoading(false)
+            if (url) {
+                try {
+                    const response = await axios.get(`${url}/block/29390`)
+                    console.log(response)
+                    setData(response.data)
+                    setIsLoading(false)
+                } catch (error) {
+                    console.error(error)
+                    setIsLoading(false)
+                }
             }
         }
         fetchData()
