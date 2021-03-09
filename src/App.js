@@ -1,73 +1,43 @@
 // import logo from './logo.svg';
-import { useEffect, useState } from 'react'
-import './App.css'
-const axios = require('axios')
-require('dotenv').config()
+import 'react-bulma-components/dist/react-bulma-components.min.css'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+
+import { Home } from './Home'
+import { Nav } from './Nav'
 
 function App() {
-    const [data, setData] = useState({})
-    const [isLoading, setIsLoading] = useState(true)
-
-    const url = process.env.REACT_APP_BASE_URL
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true)
-            if (url) {
-                try {
-                    const response = await axios.get(`${url}/block/latest`)
-                    console.log(response)
-                    setData(response.data)
-                    setIsLoading(false)
-                } catch (error) {
-                    console.error(error)
-                    setIsLoading(false)
-                }
-            }
-        }
-        fetchData()
-    }, [url])
-
     return (
         <div>
-            <header className="App-header">
-                <h3>Block</h3>
-
-                {isLoading ? (
-                    <div>Loading ...</div>
-                ) : (
+            <Nav />
+            <div class="hero-body">
+                <div class="container">
+                    {/* <nav>
                     <ul>
-                        {Object.keys(data[0]).map((x, i) => (
-                            <p>
-                                {x !== 'logsBloom'
-                                    ? `${x}: ${data[0][x]}`
-                                    : null}
-                                {/* {x}: {data[0][x]} */}
-                            </p>
-                        ))}
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/tx">Tx</Link>
+                        </li>
+                        <li>
+                            <Link to="/users">Users</Link>
+                        </li>
                     </ul>
-                )}
-
-                <h3>Transactions</h3>
-                {isLoading ? (
-                    <div>Loading ...</div>
-                ) : (
-                    <ul>
-                        {data[1].Transactions.map((item) => (
-                            <p key={item.hash}>
-                                <a
-                                    className="App-link"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    href={`https://explorer.aquacha.in/tx/${item.hash}`}
-                                >
-                                    {item.hash}
-                                </a>
-                            </p>
-                        ))}
-                    </ul>
-                )}
-            </header>
+                </nav> */}
+                    {/* <Switch>
+                    <Route path="/tx">
+                        <Trans />
+                    </Route>
+                    <Route path="/block">
+                        <Block />
+                    </Route>
+                    <Route path="/">
+                        <Home />
+                    </Route>
+                </Switch> */}
+                    <Home></Home>
+                </div>
+            </div>
         </div>
     )
 }
