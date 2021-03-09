@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+import { useEffect, useState } from 'react'
+import './App.css'
+const axios = require('axios')
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [data, setData] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
+
+    const url = `https://explorer.aquacha.in`
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsLoading(true)
+            try {
+                const response = await axios.get(`${url}/block/29390`)
+                console.log(response)
+                setData(response.data)
+                setIsLoading(false)
+            } catch (error) {
+                console.error(error)
+                setIsLoading(false)
+            }
+        }
+        fetchData()
+    }, [url])
+
+    return (
+        <div className="App">
+            {isLoading ? (
+                <div>Loading ...</div>
+            ) : (
+                <ul>
+                    {data[1].Transactions.map((item) => (
+                        <li key={item.hash}>
+                            <a href={'#'}>{item.hash}</a>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    )
 }
 
-export default App;
+export default App
