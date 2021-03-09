@@ -15,7 +15,7 @@ function App() {
             setIsLoading(true)
             if (url) {
                 try {
-                    const response = await axios.get(`${url}/block/29390`)
+                    const response = await axios.get(`${url}/block/latest`)
                     console.log(response)
                     setData(response.data)
                     setIsLoading(false)
@@ -29,18 +29,45 @@ function App() {
     }, [url])
 
     return (
-        <div className="App">
-            {isLoading ? (
-                <div>Loading ...</div>
-            ) : (
-                <ul>
-                    {data[1].Transactions.map((item) => (
-                        <li key={item.hash}>
-                            <a href={'#'}>{item.hash}</a>
-                        </li>
-                    ))}
-                </ul>
-            )}
+        <div>
+            <header className="App-header">
+                <h3>Block</h3>
+
+                {isLoading ? (
+                    <div>Loading ...</div>
+                ) : (
+                    <ul>
+                        {Object.keys(data[0]).map((x, i) => (
+                            <p>
+                                {x !== 'logsBloom'
+                                    ? `${x}: ${data[0][x]}`
+                                    : null}
+                                {/* {x}: {data[0][x]} */}
+                            </p>
+                        ))}
+                    </ul>
+                )}
+
+                <h3>Transactions</h3>
+                {isLoading ? (
+                    <div>Loading ...</div>
+                ) : (
+                    <ul>
+                        {data[1].Transactions.map((item) => (
+                            <p key={item.hash}>
+                                <a
+                                    className="App-link"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href={`https://explorer.aquacha.in/tx/${item.hash}`}
+                                >
+                                    {item.hash}
+                                </a>
+                            </p>
+                        ))}
+                    </ul>
+                )}
+            </header>
         </div>
     )
 }
