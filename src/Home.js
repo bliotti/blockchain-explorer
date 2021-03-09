@@ -6,25 +6,32 @@ import { Trans } from './Trans'
 export const Home = () => {
     const [aquaData, setData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
-    const url = process.env.REACT_APP_BASE_URL
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true)
-            if (url) {
-                try {
-                    const response = await axios.get(`${url}/block/latest`)
-                    console.log(response)
-                    setData(response.data)
-                    setIsLoading(false)
-                } catch (error) {
-                    console.error(error)
-                    setIsLoading(false)
-                }
+    const fetchData = async () => {
+        const url = process.env.REACT_APP_BASE_URL
+        setIsLoading(true)
+        if (url) {
+            try {
+                const response = await axios.get(`${url}/block/latest`)
+                console.log(response)
+                setData(response.data)
+                setIsLoading(false)
+            } catch (error) {
+                console.error(error)
+                setIsLoading(false)
             }
         }
+    }
+
+    useEffect(() => {
         fetchData()
-    }, [url])
+
+        const interval = setInterval(() => {
+            fetchData()
+        }, 30000)
+
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <div className="content">

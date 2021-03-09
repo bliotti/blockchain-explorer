@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { Home } from './Home'
 import { Nav } from './Nav'
 
+const Web3 = require('web3')
+let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545')
+
 function App() {
     return (
         <div>
