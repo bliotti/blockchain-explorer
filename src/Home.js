@@ -14,14 +14,14 @@ export const Home = () => {
     const [isLoading, setIsLoading] = useState(true)
     const url = process.env.REACT_APP_BASE_URL
 
-    const fetchTransDetails = (trans) => {
-        const allRequests = trans.map((tran) =>
-            axios.get(`${url}/tx/${tran.hash}`)
-        )
-        return Promise.all(allRequests)
-    }
-
     useEffect(() => {
+        const fetchTransDetails = (trans) => {
+            const allRequests = trans.map((tran) =>
+                axios.get(`${url}/tx/${tran.hash}`)
+            )
+            return Promise.all(allRequests)
+        }
+
         const fetchData = async () => {
             const response = await axios.get(`${url}/head`)
 
@@ -40,7 +40,7 @@ export const Home = () => {
             }, 3000)
             return () => clearInterval(interval)
         }
-    }, [isAutoFetching])
+    }, [isAutoFetching, url])
 
     return (
         <>

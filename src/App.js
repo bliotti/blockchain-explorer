@@ -1,5 +1,10 @@
 import 'react-bulma-components/dist/react-bulma-components.min.css'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    HashRouter,
+} from 'react-router-dom'
 import { Home } from './Home'
 import { Nav } from './Nav'
 import { Transaction } from './Transaction'
@@ -13,7 +18,7 @@ let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545')
 function App() {
     return (
         <div>
-            <Router basename={process.env.PUBLIC_URL}>
+            <HashRouter basename={process.env.PUBLIC_URL}>
                 <Nav />
                 <Switch>
                     <Route path="/tx/:id" component={Transaction}></Route>
@@ -22,7 +27,7 @@ function App() {
                     <Route exact path="/" component={Home}></Route>
                     <Route path="*" component={NoMatch}></Route>
                 </Switch>
-            </Router>
+            </HashRouter>
         </div>
     )
 }
