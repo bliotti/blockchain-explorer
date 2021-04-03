@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/blockchain-explorer/static/css/main.0c7472f4.chunk.css",
-    "main.js": "/blockchain-explorer/static/js/main.c190a8d1.chunk.js",
-    "main.js.map": "/blockchain-explorer/static/js/main.c190a8d1.chunk.js.map",
+    "main.js": "/blockchain-explorer/static/js/main.9e769783.chunk.js",
+    "main.js.map": "/blockchain-explorer/static/js/main.9e769783.chunk.js.map",
     "runtime-main.js": "/blockchain-explorer/static/js/runtime-main.3cf9e3f3.js",
     "runtime-main.js.map": "/blockchain-explorer/static/js/runtime-main.3cf9e3f3.js.map",
     "static/css/2.17980b61.chunk.css": "/blockchain-explorer/static/css/2.17980b61.chunk.css",
-    "static/js/2.a1b255e4.chunk.js": "/blockchain-explorer/static/js/2.a1b255e4.chunk.js",
-    "static/js/2.a1b255e4.chunk.js.map": "/blockchain-explorer/static/js/2.a1b255e4.chunk.js.map",
+    "static/js/2.f7a97096.chunk.js": "/blockchain-explorer/static/js/2.f7a97096.chunk.js",
+    "static/js/2.f7a97096.chunk.js.map": "/blockchain-explorer/static/js/2.f7a97096.chunk.js.map",
     "static/js/3.b86f91d1.chunk.js": "/blockchain-explorer/static/js/3.b86f91d1.chunk.js",
     "static/js/3.b86f91d1.chunk.js.map": "/blockchain-explorer/static/js/3.b86f91d1.chunk.js.map",
     "index.html": "/blockchain-explorer/index.html",
     "static/css/2.17980b61.chunk.css.map": "/blockchain-explorer/static/css/2.17980b61.chunk.css.map",
     "static/css/main.0c7472f4.chunk.css.map": "/blockchain-explorer/static/css/main.0c7472f4.chunk.css.map",
-    "static/js/2.a1b255e4.chunk.js.LICENSE.txt": "/blockchain-explorer/static/js/2.a1b255e4.chunk.js.LICENSE.txt"
+    "static/js/2.f7a97096.chunk.js.LICENSE.txt": "/blockchain-explorer/static/js/2.f7a97096.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3cf9e3f3.js",
     "static/css/2.17980b61.chunk.css",
-    "static/js/2.a1b255e4.chunk.js",
+    "static/js/2.f7a97096.chunk.js",
     "static/css/main.0c7472f4.chunk.css",
-    "static/js/main.c190a8d1.chunk.js"
+    "static/js/main.9e769783.chunk.js"
   ]
 }
