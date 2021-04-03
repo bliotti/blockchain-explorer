@@ -13,7 +13,7 @@ let web3 = new Web3(Web3.givenProvider || 'ws://localhost:8545')
 function App() {
     return (
         <div>
-            <Router>
+            <Router basename={process.env.PUBLIC_URL}>
                 <Nav />
                 <Switch>
                     <Route path="/tx/:id" component={Transaction}></Route>
