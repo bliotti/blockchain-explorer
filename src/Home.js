@@ -23,7 +23,7 @@ export const Home = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`${url}/block/362619`)
+            const response = await axios.get(`${url}/head`)
 
             setData(response.data)
             const all = await fetchTransDetails(response.data[1].Transactions)
