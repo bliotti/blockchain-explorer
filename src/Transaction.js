@@ -34,7 +34,7 @@ export function Transaction(params) {
     return !isLoading ? (
         <div style={{ marginBottom: 20 }}>
             <p>
-                {`${idx}:\t`}
+                {`${id ? 'txid' : idx}:\t`}
                 <Link to={`/tx/${transData.hash}`}>{transData.hash}</Link>
             </p>
             <ul>
