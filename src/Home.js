@@ -1,12 +1,16 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router'
 import { Block } from './Block'
 import { txModel } from './models'
 import { Nav } from './Nav'
+import { SearchBar } from './SearchBar'
 import ToggleSwitch from './ToggleSwitch'
 import { Transaction } from './Transaction'
 
-export const Home = () => {
+export const Home = (params) => {
+    let { blkid } = useParams()
+
     const [isAutoFetching, setIsAutoFetching] = useState(false)
 
     const [aquaData, setData] = useState({})
@@ -23,9 +27,13 @@ export const Home = () => {
         }
 
         const fetchData = async () => {
-            const response = await axios.get(`${url}/head`)
+            const response = blkid
+                ? await axios.get(`${url}/block/${blkid}`)
+                : await axios.get(`${url}/head`)
+            // const response = await axios.get(`${url}/head`)
 
             setData(response.data)
+
             const all = await fetchTransDetails(response.data[1].Transactions)
 
             setTransData(all)
@@ -40,7 +48,7 @@ export const Home = () => {
             }, 3000)
             return () => clearInterval(interval)
         }
-    }, [isAutoFetching, url])
+    }, [isAutoFetching, url, blkid])
 
     return (
         <>
@@ -53,6 +61,7 @@ export const Home = () => {
                         name="AUTO"
                     />
                 </div>
+                <SearchBar params={params} />
                 <div className="container">
                     <div className="content">
                         <h3>Block</h3>

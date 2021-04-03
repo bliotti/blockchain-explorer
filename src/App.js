@@ -23,8 +23,10 @@ function App() {
                 <Switch>
                     <Route path="/tx/:id" component={Transaction}></Route>
                     <Route path="/address/:id" component={Address}></Route>
-                    <Route exact path="/block/:id" component={Block}></Route>
-                    <Route exact path="/" component={Home}></Route>
+                    {/* <Route exact path="/block/:id" component={Block}></Route> */}
+                    <Route path="/notfound/:id" component={NoMatch}></Route>
+                    <Route path="/:blkid" component={Home}></Route>
+                    <Route path="/" component={Home}></Route>
                     <Route path="*" component={NoMatch}></Route>
                 </Switch>
             </HashRouter>

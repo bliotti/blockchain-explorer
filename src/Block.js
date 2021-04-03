@@ -33,14 +33,14 @@ export function Block(params) {
         <ul>
             <p>
                 parentHash:
-                <Link to={`/block/${blockData.parentHash}`}>
+                <Link to={`/${blockData.parentHash}`}>
                     {blockData.parentHash}
                 </Link>
             </p>
 
             <p>
                 hash:
-                <Link to={`/block/${blockData.hash}`}>{blockData.hash}</Link>
+                <Link to={`/${blockData.hash}`}>{blockData.hash}</Link>
             </p>
 
             <p>{`sha3Uncles: ${blockData.sha3Uncles}`}</p>
