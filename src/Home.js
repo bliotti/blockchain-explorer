@@ -1,9 +1,14 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Block } from './Block'
-import { Trans } from './Trans'
+import { txModel } from './models'
+import { Nav } from './Nav'
+import ToggleSwitch from './ToggleSwitch'
+import { Transaction } from './Transaction'
 
 export const Home = () => {
+    const [isAutoFetching, setIsAutoFetching] = useState(false)
+
     const [aquaData, setData] = useState({})
     const [transData, setTransData] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -16,49 +21,62 @@ export const Home = () => {
         return Promise.all(allRequests)
     }
 
-    const fetchData = async () => {
-        setIsLoading(true)
-        if (url) {
-            try {
-                const response = await axios.get(`${url}/block/362619`)
-                console.log(
-                    '🚀 ~ file: Home.js ~ line 24 ~ fetchData ~ response',
-                    response
-                )
-                setData(response.data)
-                setIsLoading(false)
-                try {
-                    const all = await fetchTransDetails(
-                        response.data[1].Transactions
-                    )
-                    setTransData(all)
-                } catch (error) {
-                    console.error(error)
-                }
-            } catch (error) {
-                console.error(error)
-                setIsLoading(false)
-            }
-        }
-    }
-
     useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(`${url}/block/362619`)
+
+            setData(response.data)
+            const all = await fetchTransDetails(response.data[1].Transactions)
+
+            setTransData(all)
+            setIsLoading(false)
+        }
+
         fetchData()
 
-        const interval = setInterval(() => {
-            fetchData()
-        }, 30000)
+        if (isAutoFetching) {
+            const interval = setInterval(() => {
+                fetchData()
+            }, 3000)
+            return () => clearInterval(interval)
+        }
+    }, [isAutoFetching])
 
-        return () => clearInterval(interval)
-    }, [])
-    console.log(transData)
     return (
-        <div className="content">
-            <h3>Block</h3>
-            {isLoading ? <div>Loading ...</div> : Block(aquaData[0])}
+        <>
+            <div className="hero-body">
+                <div style={{ position: 'absolute', right: 0 }}>
+                    <ToggleSwitch
+                        id="switch"
+                        checked={isAutoFetching}
+                        onChange={(checked) => setIsAutoFetching(checked)}
+                        name="AUTO"
+                    />
+                </div>
+                <div className="container">
+                    <div className="content">
+                        <h3>Block</h3>
+                        {isLoading ? (
+                            <div>Loading ...</div>
+                        ) : (
+                            <Block {...aquaData[0]} />
+                        )}
 
-            <h3>Transactions</h3>
-            {isLoading ? <div>Loading ...</div> : Trans(aquaData[1], transData)}
-        </div>
+                        <h3>Transactions</h3>
+                        {isLoading ? (
+                            <div>Loading ...</div>
+                        ) : (
+                            transData.map((tx, idx) => (
+                                <Transaction
+                                    key={txModel(tx).hash}
+                                    tx={tx}
+                                    idx={idx}
+                                />
+                            ))
+                        )}
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
